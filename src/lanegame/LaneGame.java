@@ -1,14 +1,11 @@
 package lanegame;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -17,8 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -69,6 +64,9 @@ public class LaneGame {
                             switch(USA.hand.get(i).cardName){
                                 case "M41 Walker Bulldog":
                                     m41Bulldog.showInfo();
+                                    break;
+                                case "M60 Patton":
+                                    m60patton.showInfo();
                                     break;
                                 default:
                                     break;
@@ -215,41 +213,74 @@ class descriptions{
         public static final String
             und = "Undefined";
 }
-final class m41Bulldog{
-    static final int health = 4, strength = 3, cost = 4;
-    static final String name = "M41 Walker Bulldog";
-    static final String description = "US Light Tank";
-    static final String[] armour = new String[]{
-        "25.4mm turret front",
-        "25mm turret sides and rear",
-        "12.7mm turret top",
-        "31.7mm at 45° hull nose plate",
-        "25.4mm at 30° hull glacis plate",
-        "19mm hull rear",
-        "9.25mm hull floor"
-    };
-    static final int crewSize = 4;
-    static final int year = 1949;
-    static final String type = "Light Tank";
-    
-    static final String[] armaments = new String[]{
-        "76mm M32A1 rifled cannon",
-        ".30cal M1919A4 coaxial machine gun",
-        ".50cal Browning M2 roof-mounted machine gun"
-    };
-    static public Image getImage(){
-        try {
-            return ImageIO.read(new File("src\\lanegame\\M41Bulldog.jpg"));
-        } catch (IOException ex) {
-            return null;
-        }
-    }
-    static public void showInfo(){
-        new infoPane(name,armaments,armour, crewSize, year ,type, getImage()).setVisible(true);
-    }
-}
-class card{
+//<editor-fold desc="Tanks">
+    //<editor-fold desc="M41 Bulldog">
+        final class m41Bulldog{
+            static final int health = 4, strength = 3, cost = 4;
+            static final String name = "M41 Walker Bulldog";
+            static final String description = "US Light Tank";
+            static final String[] armour = new String[]{
+                "25.4mm turret front",
+                "25mm turret sides and rear",
+                "12.7mm turret top",
+                "31.7mm at 45° hull nose plate",
+                "25.4mm at 30° hull glacis plate",
+                "19mm hull rear",
+                "9.25mm hull floor"
+            };
+            static final int crewSize = 4;
+            static final int year = 1949;
+            static final String type = "Light Tank";
 
+            static final String[] armaments = new String[]{
+                "76mm M32A1 rifled cannon",
+                ".30cal M1919A4 coaxial machine gun",
+                ".50cal Browning M2 roof-mounted machine gun"
+            };
+            static public Image getImage(){
+                try {
+                    return ImageIO.read(new File("src\\lanegame\\M41Bulldog.jpg"));
+                } catch (IOException ex) {
+                    return null;
+                }
+            }
+            static public void showInfo(){
+                new infoPane(name,armaments,armour, crewSize, year ,type, getImage()).setVisible(true);
+            }
+        }
+    //</editor-fold>
+    //<editor-fold desc="M60 Patton">
+        final class m60patton{
+            static final int health = 4, strength = 3, cost = 4;
+            static final String name = "M60 Patton";
+            static final String description = "US Main Battle Tank. Takes 1 less damage from all sources.";
+            static final String[] armour = new String[]{
+                "3.67 in (93 mm) at 65°",
+                "8.68 in (220 mm) LoS"
+            };
+            static final int crewSize = 4;
+            static final int year = 1960;
+            static final String type = "Main Battle Tank";
+
+            static final String[] armaments = new String[]{
+                "M68 105 mm cannon",
+                ".50 BMG M85 mounted on M19 Commanders Cupola",
+                "7.62×51mm NATO M73 machine gun"
+            };
+            static public Image getImage(){
+                try {
+                    return ImageIO.read(new File("src\\lanegame\\M60Patton.jpg"));
+                } catch (IOException ex) {
+                    return null;
+                }
+            }
+            static public void showInfo(){
+                new infoPane(name,armaments,armour, crewSize, year ,type, getImage()).setVisible(true);
+            }
+        }
+    //</editor-fold>
+//</editor-fold>
+class card{
     String type = "";
     int id = 0;
     int cost = 0;
@@ -262,11 +293,11 @@ class card{
         this.id = (int)(Math.floor(Math.random()*5));
         switch (id) {
             case 0:
-                this.cardName = "Soldier";
-                this.cardDesc = descriptions.und;
-                this.strength = 2;
-                this.health = 1;
-                this.cost = 1;
+                this.cardName = "M60 Patton";
+                this.cardDesc = m60patton.description;
+                this.strength = m60patton.strength;
+                this.health = m60patton.health;
+                this.cost = m60patton.cost;
                 break;
             case 1:
                 this.cardName = "Cannon";
@@ -300,12 +331,12 @@ class card{
     }
     card(String c){
         switch (c) {
-            case "Soldier":
-                this.cardName = "Soldier";
-                this.cardDesc = descriptions.und;
-                this.strength = 2;
-                this.health = 1;
-                this.cost = 1;
+            case "M60 Patton":
+                this.cardName = m60patton.name;
+                this.cardDesc = m60patton.description;
+                this.strength = m60patton.strength;
+                this.health = m60patton.health;
+                this.cost = m60patton.cost;
                 break;
             case "Cannon":
                 this.cardName = "Cannon";
