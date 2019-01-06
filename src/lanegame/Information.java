@@ -1,56 +1,14 @@
 package lanegame;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-public class Information{
-    static Image tempImg;
-    /*
-        25.4mm turret front
-        25mm turret sides and rear
-        12.7mm turret top
-        31.7mm at 45° hull nose plate
-        25.4mm at 30° hull glacis plate
-        19mm hull rear
-        9.25mm hull floor
-    */
-    public static void main(String[] args){
-        try {
-            tempImg = ImageIO.read(new File("src\\lanegame\\M41Bulldog.jpg"));
-        } catch (IOException ex) {
-
-        }
-        String[] w = {
-            "76mm M32A1 rifled cannon",
-            ".30cal M1919A4 coaxial machine gun",
-            ".50cal Browning M2 roof-mounted machine gun"
-        };
-        String[] a = {
-            "25.4mm turret front",
-            "25mm turret sides and rear",
-            "12.7mm turret top",
-            "31.7mm at 45° hull nose plate",
-            "25.4mm at 30° hull glacis plate",
-            "19mm hull rear",
-            "9.25mm hull floor"
-        };
-        infoPane t = new infoPane("M41 Walker Bulldog",w,a, 4, 1949 ,"Light Tank", tempImg);
-        t.setVisible(true);
-        t.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    }
-}
 class infoPane extends JDialog{
     infoPane(String tankName, String[] armament, String armour[], int crewSize, int year, String type, Image tankImage){
-        this.setSize(500,350);
+        this.setSize(800,400);
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
         this.setLocationRelativeTo(null);
@@ -135,7 +93,6 @@ class infoPane extends JDialog{
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         p.add(new JLabel(""+year),gbc);
-        
         
         //add the image
         gbc.gridx = 3;
